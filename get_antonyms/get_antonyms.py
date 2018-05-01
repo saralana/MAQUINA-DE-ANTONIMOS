@@ -1,11 +1,13 @@
+import os
 import re
 import rdflib
 import urllib2
 from rdflib import URIRef as URI
 
-RDF_FILE = '../assets/OntoPTv0.6_rdf/OntoPTv0.6.rdfs'
-TXT_FILE = '../assets/ICMC_USP/triplos.txt'
-OUT_FILE = '../assets/ants.js/ants.js'
+MY_PATH = os.path.dirname(os.path.realpath(__file__))
+RDF_FILE = os.path.join(MY_PATH, '../assets/OntoPTv0.6_rdf/OntoPTv0.6.rdfs')
+TXT_FILE = os.path.join(MY_PATH, '../assets/ICMC_USP/triplos.txt')
+OUT_FILE = os.path.join(MY_PATH, '../assets/ants.js/ants.js')
 
 g = rdflib.Graph()
 result = g.parse(RDF_FILE)
