@@ -1,0 +1,5 @@
+.DS_*
+package*json
+node_modules
+outputs
+!.gitkeep
