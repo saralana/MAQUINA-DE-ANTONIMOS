@@ -1,0 +1,30 @@
+sudo: required
+
+language: python
+
+notifications:
+  email: false
+
+branches:
+  only:
+  - master
+
+before_script:
+  - nvm install node
+  - npm install uglify-js
+
+script:
+  - python get_antonyms.py
+
+before_deploy:
+  - ./node_modules/uglify-js/bin/uglifyjs --compress --mangle --output ./outputs/ants.min.js -- ./outputs/ants.js
+
+deploy:
+  provider: releases
+  api_key: $GHTOKEN
+  file: "outputs/ants.min.js"
+  body: "$TRAVIS_BRANCH: $TRAVIS_COMMIT_MESSAGE"
+  target_commitish: $TRAVIS_COMMIT
+  skip_cleanup: true
+  on:
+    all_branches: true
