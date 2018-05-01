@@ -5,7 +5,7 @@ from rdflib import URIRef as URI
 
 RDF_FILE = '../assets/OntoPTv0.6_rdf/OntoPTv0.6.rdfs'
 TXT_FILE = '../assets/ICMC_USP/triplos.txt'
-OUT_FILE = './outputs/ants.js'
+OUT_FILE = '../assets/ants.js/ants.js'
 
 g = rdflib.Graph()
 result = g.parse(RDF_FILE)
