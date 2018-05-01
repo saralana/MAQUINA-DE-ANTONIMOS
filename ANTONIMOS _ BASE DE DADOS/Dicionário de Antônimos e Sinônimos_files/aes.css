@@ -1,0 +1,33 @@
+*{margin:0;padding:0;}
+html,body{background:#f7f7f7;color:#222;font-family:arial,helvetica,sans-serif;font-size:16px;height:100%;}
+h1,h2,h3,h4,h5{margin:28px 0 8px 0;padding:2px 0;}
+h1{color:#025570;font-size:24px;margin:0;padding:20px 0 0 0;}
+h2{font-size:24px;border-bottom:1px solid #f0f0f0;}
+a{color:#025570;text-decoration:none;}
+a:hover{color:#8901fc;text-decoration:underline;}
+table{width:100%;}
+table td{width:33%;}
+form{background:#025570;margin:25px 0 0 0;padding:25px 0;text-align:center;width:100%;-webkit-border-radius:8px;-moz-border-radius:8px;border-radius:8px;}
+input{background:#fff;border:0;color:#777;font-family:arial,helvetica,sans-serif;font-size:18px;font-weight:bold;/line-height:42px;/height:42px;outline:none;padding:10px;/padding:0 10px;width:400px;-webkit-border-radius:8px;-moz-border-radius:8px;border-radius:8px;}
+input:focus{color:#222;box-shadow:0 0 10px #00232f;-moz-box-shadow:0 0 10px #00232f;-webkit-box-shadow:0 0 10px #00232f;}
+button{background:#fff;border:0;cursor:pointer;font-family:arial,helvetica,sans-serif;font-size:16px;font-weight:bold;height:42px;margin:0 0 0 5px;padding:9px 10px 9px 10px;/padding:9px 10px 9px 10px;width:100px;-webkit-border-radius:8px;-moz-border-radius:8px;border-radius:8px;}
+button:hover{background:#fff;box-shadow:0 0 10px #00232f;-moz-box-shadow:0 0 10px #00232f;-webkit-box-shadow:0 0 10px #00232f}
+form ul{margin:15px 0 0 0;padding:0;}
+form li{color:#fff;display:inline;margin:0;padding:0 2px;}
+form li a{color:#fff;}
+form li a:hover{color:#f0f0f0;}
+p{margin:0 0 10px 0}
+abbr{border:0;display:block;}
+ul,ol{margin:0 0 0 20px;}
+li{margin:0 0 10px 0}
+#conteudo{background:#fff;margin:0 auto;min-height:100%;padding:0 20px 20px 20px;width:910px;box-shadow:0 0 200px rgba(0,0,0,.1);-moz-box-shadow:0 0 200px rgba(0,0,0,.1);-webkit-box-shadow:0 0 200px rgba(0,0,0,.1);}
+.flutuar{position:fixed;top:20px}
+#AeSInicial728x90{margin:30px 0 0 0;text-align:center;}
+.AeSPesquisa728x90{text-align:center;}
+.lateral{float:left;margin:20px 0 0 0;width:160px;min-height:800px}
+.conteudo{margin:0 0 0 180px;min-height:400px}
+.banner-bottom{position:absolute;bottom:20px}
+.flutuar{position:fixed;top:20px}
+.l{clear:both;}
+#AeSTopo300x250,#AeSRodape300x250{margin:20px 0}
+.alfabeto{float:left;width:20%}

@@ -1,0 +1,11 @@
+  {
+    "name": "Máquina de Antônimos",
+    "version": "1.0",
+    "description": "aparato para tradução antonímica",
+    "permissions": ["storage"],
+    "background": {
+      "scripts": ["background.js"],
+      "persistent": false
+    },
+    "manifest_version": 2
+  }
