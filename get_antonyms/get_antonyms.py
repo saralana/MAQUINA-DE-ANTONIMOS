@@ -1,5 +1,6 @@
 import os
 import re
+import json
 import rdflib
 from rdflib import URIRef as URI
 
@@ -43,13 +44,10 @@ with open(TXT_FILE, 'r') as infile:
       antonym = line_arr[1].decode('utf8').strip()
       putInDict(word, antonym, antonymDictionary)
 
+for word in antonymDictionary:
+  antonymDictionary[word] = [antonym for antonym in antonymDictionary[word]]
+
+jsonDictionary = json.dumps(antonymDictionary, ensure_ascii=False, encoding='utf8')
+
 with open(OUT_FILE, 'w') as outfile:
-  outfile.write('var ants = {\n')
-  for word in antonymDictionary:
-    wordAntonymString = '  \'' + word.encode('utf8') + '\': ['
-    for antonym in antonymDictionary[word]:
-      wordAntonymString += '\n    \'' + antonym.encode('utf8') + '\','
-    wordAntonymString = wordAntonymString[:-1]
-    wordAntonymString += '\n  ],\n'
-    outfile.write(wordAntonymString)
-  outfile.write('}\n')
+  outfile.write("var ants = JSON.parse('" + jsonDictionary.encode('utf8') + "')\n")
