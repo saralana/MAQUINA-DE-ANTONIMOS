@@ -13,7 +13,7 @@ before_script:
   - pip install rdflib
 
 script:
-  - python get_antonyms/get_antonyms.py
+  - python build_antonyms/build_antonyms.py
 
 deploy:
   provider: releases
