@@ -14,11 +14,16 @@ mGraph.parse(RDF_FILE)
 
 antonymDictionary = {}
 URI_URL = u'http://ontopt.dei.uc.pt/OntoPT.owl#'
-uris = [URI_URL + 'antonimoAdjDe',
-        URI_URL + 'antonimoNDe',
-        URI_URL + 'antonimoVDe']
+uris = ['antonimoAdjDe', 'antonimoNDe', 'antonimoVDe']
 
-def putInDict(word, antonym, dict):
+def putInDict(word, antonym, dict, isAdj=False):
+  if(isAdj and (word[-1] == 'o') and (antonym[-1] == 'o')):
+    putInDict(word[:-1] + 'a', antonym[:-1] + 'a', dict)
+    putInDict(word[:-1] + 'os', antonym[:-1] + 'os', dict)
+    putInDict(word[:-1] + 'as', antonym[:-1] + 'as', dict)
+  elif(isAdj and re.match(r'[aeo]', word[-1]) and re.match(r'[aeo]', antonym[-1])):
+    putInDict(word + 's', antonym + 's', dict)
+
   if(word not in dict):
     dict[word] = {}
   dict[word][antonym] = 1
@@ -28,21 +33,23 @@ def putInDict(word, antonym, dict):
   return
 
 for uri in uris:
-  for antonymPair in mGraph[:URI(uri)]:
-      for word in mGraph[antonymPair[0] : URI(URI_URL + 'formaLexical')]:
-        word = word.encode('utf8').decode('utf8')
-        for antonym in mGraph[antonymPair[1] : URI(URI_URL + 'formaLexical')]:
-          antonym = antonym.encode('utf8').decode('utf8')
-          putInDict(word, antonym, antonymDictionary)
+  isAdjective = 'Adj' in uri
+  for antonymPair in mGraph[:URI(URI_URL + uri)]:
+    for word in mGraph[antonymPair[0] : URI(URI_URL + 'formaLexical')]:
+      word = word.encode('utf8').decode('utf8').strip()
+      for antonym in mGraph[antonymPair[1] : URI(URI_URL + 'formaLexical')]:
+        antonym = antonym.encode('utf8').decode('utf8').strip()
+        putInDict(word, antonym, antonymDictionary, isAdjective)
 
 with open(TXT_FILE, 'r') as infile:
   for line in infile:
     if('ANTONIMO_DE' in line):
+      isAdjective = 'djetivo' in line
       line = re.sub(r'\[.*\] ','', line)
       line_arr = line.split(' ANTONIMO_DE ')
       word = line_arr[0].decode('utf8').strip()
       antonym = line_arr[1].decode('utf8').strip()
-      putInDict(word, antonym, antonymDictionary)
+      putInDict(word, antonym, antonymDictionary, isAdjective)
 
 for word in antonymDictionary:
   antonymDictionary[word] = [antonym for antonym in antonymDictionary[word]]
