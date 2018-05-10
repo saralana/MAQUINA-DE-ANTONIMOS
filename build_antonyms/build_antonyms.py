@@ -4,6 +4,7 @@
 import json
 import os
 import re
+import cPickle
 import subprocess
 import hunspell
 import rdflib
@@ -13,12 +14,12 @@ spellDictionary = hunspell.HunSpell('/usr/share/hunspell/pt_BR.dic',
                                     '/usr/share/hunspell/pt_BR.aff')
 
 MY_PATH = os.path.dirname(os.path.realpath(__file__))
-RDF_FILE = MY_PATH + '/../assets/OntoPTv0.6_rdf/OntoPTv0.6.rdfs'
+RDF_FILE = MY_PATH + '/../assets/OntoPTv0.6_rdf/OntoPTv0.6.bin'
 TXT_FILE = MY_PATH + '/../assets/ICMC_USP/triplos.txt'
 OUT_FILE = MY_PATH + '/../assets/ants.js/ants.js'
 
-mGraph = rdflib.Graph()
-mGraph.parse(RDF_FILE)
+with open(RDF_FILE, 'rb') as graphFile:
+    mGraph = cPickle.load(graphFile)
 
 antonymDictionary = {}
 URI_URL = u'http://ontopt.dei.uc.pt/OntoPT.owl#'
@@ -35,8 +36,7 @@ def putInDict(word, antonym, dict, pos=''):
   elif((pos == 'adj') and re.match(r'[aeo]', word[-1]) and re.match(r'[aeo]', antonym[-1])):
     putInDict(word + 's', antonym + 's', dict)
 
-  if(spellDictionary.spell(word.decode('utf8')) and
-     spellDictionary.spell(antonym).decode('utf8')):
+  if(spellDictionary.spell(word) and spellDictionary.spell(antonym)):
     if(word not in dict):
       dict[word] = {}
     dict[word][antonym] = 1
