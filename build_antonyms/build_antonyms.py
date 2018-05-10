@@ -36,17 +36,20 @@ def conjugateAntonyms(word, antonym, dict):
   word_conj = subprocess.check_output('conjugar %s' % word, shell=True)
   antonym_conj = subprocess.check_output('conjugar %s' % antonym, shell=True)
 
-  for tense in tenses:
-    word_tense = re.findall(r'.*\n('+tense+'(.*\n){7})', word_conj)[0][0]
-    antonym_tense = re.findall(r'.*\n('+tense+'(.*\n){7})', antonym_conj)[0][0]
+  try:
+    for tense in tenses:
+      word_tense = re.findall(r'.*\n(' + tense + '(.*\n){7})', word_conj)[0][0]
+      antonym_tense = re.findall(r'.*\n(' + tense + '(.*\n){7})', antonym_conj)[0][0]
 
-    for person in persons:
-      word_tense_person = re.findall(r'.*' + person + ' (.*)\s', word_tense)
-      antonym_tense_person = re.findall(r'.*' + person + ' (.*)\s', antonym_tense)
-      if (len(word_tense_person) > 0 and len(antonym_tense_person) > 0):
-        putInDict(word_tense_person[0].decode('utf8').strip(),
-                  antonym_tense_person[0].decode('utf8').strip(),
-                  dict)
+      for person in persons:
+        word_tense_person = re.findall(r'.*' + person + ' (.*)\s', word_tense)
+        antonym_tense_person = re.findall(r'.*' + person + ' (.*)\s', antonym_tense)
+        if (len(word_tense_person) > 0 and len(antonym_tense_person) > 0):
+          putInDict(word_tense_person[0].decode('utf8').strip(),
+                    antonym_tense_person[0].decode('utf8').strip(),
+                    dict)
+  except:
+    print "Conjugate Error: %s %s" % (word, antonym)
 
 def putInDict(word, antonym, dict, pos=''):
   word = word.replace('ü'.decode('utf8'), 'u')
