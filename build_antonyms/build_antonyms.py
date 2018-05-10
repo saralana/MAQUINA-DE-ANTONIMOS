@@ -25,6 +25,29 @@ antonymDictionary = {}
 URI_URL = u'http://ontopt.dei.uc.pt/OntoPT.owl#'
 uris = ['antonimoAdjDe', 'antonimoNDe', 'antonimoVDe']
 
+def conjugateAntonyms(word, antonym, dict):
+  tenses = ['Presente do Indicativo',
+            'Perfeito do Indicativo',
+            'Imperfeito do Indicativo',
+            'Futuro do Presente do Indicativo']
+
+  persons = ['eu', 'ele', 'nós', 'eles']
+
+  word_conj = subprocess.check_output('conjugar %s' % word, shell=True)
+  antonym_conj = subprocess.check_output('conjugar %s' % antonym, shell=True)
+
+  for tense in tenses:
+    word_tense = re.findall(r'.*\n('+tense+'(.*\n){7})', word_conj)[0][0]
+    antonym_tense = re.findall(r'.*\n('+tense+'(.*\n){7})', antonym_conj)[0][0]
+
+    for person in persons:
+      word_tense_person = re.findall(r'.*' + person + ' (.*)\s', word_tense)
+      antonym_tense_person = re.findall(r'.*' + person + ' (.*)\s', antonym_tense)
+      if (len(word_tense_person) > 0 and len(antonym_tense_person) > 0):
+        putInDict(word_tense_person[0].decode('utf8').strip(),
+                  antonym_tense_person[0].decode('utf8').strip(),
+                  dict)
+
 def putInDict(word, antonym, dict, pos=''):
   word = word.replace('ü'.decode('utf8'), 'u')
   antonym = antonym.replace('ü'.decode('utf8'), 'u')
@@ -35,6 +58,8 @@ def putInDict(word, antonym, dict, pos=''):
     putInDict(word[:-1] + 'as', antonym[:-1] + 'as', dict)
   elif((pos == 'adj') and re.match(r'[aeo]', word[-1]) and re.match(r'[aeo]', antonym[-1])):
     putInDict(word + 's', antonym + 's', dict)
+  elif((pos == 'verb') and (word[-1] == 'r') and (antonym[-1] == 'r')):
+    conjugateAntonyms(word, antonym, dict)
 
   if(spellDictionary.spell(word) and spellDictionary.spell(antonym)):
     if(word not in dict):
