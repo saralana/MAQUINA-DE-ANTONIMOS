@@ -18,14 +18,18 @@ RDF_FILE = MY_PATH + '/../assets/OntoPTv0.6_rdf/OntoPTv0.6.bin'
 TXT_FILE = MY_PATH + '/../assets/ICMC_USP/triplos.txt'
 OUT_FILE = MY_PATH + '/../assets/ants.js/ants.js'
 
+mGraph = rdflib.Graph()
 with open(RDF_FILE, 'rb') as graphFile:
     mGraph = cPickle.load(graphFile)
 
 antonymDictionary = {}
+conjugationDictionary = {}
+
 URI_URL = u'http://ontopt.dei.uc.pt/OntoPT.owl#'
 uris = ['antonimoAdjDe', 'antonimoNDe', 'antonimoVDe']
 
 def conjugateAntonyms(word, antonym, dict):
+  global conjugationDictionary
   tenses = ['Presente do Indicativo',
             'Perfeito do Indicativo',
             'Imperfeito do Indicativo',
@@ -33,8 +37,13 @@ def conjugateAntonyms(word, antonym, dict):
 
   persons = ['eu', 'ele', 'nós', 'eles']
 
-  word_conj = subprocess.check_output('conjugar %s' % word, shell=True)
-  antonym_conj = subprocess.check_output('conjugar %s' % antonym, shell=True)
+  if(word not in conjugationDictionary):
+    conjugationDictionary[word] = subprocess.check_output('conjugar %s' % word, shell=True)
+  word_conj = conjugationDictionary[word]
+
+  if(antonym not in conjugationDictionary):
+    conjugationDictionary[antonym] = subprocess.check_output('conjugar %s' % antonym, shell=True)
+  antonym_conj = conjugationDictionary[antonym]
 
   try:
     for tense in tenses:
@@ -49,7 +58,7 @@ def conjugateAntonyms(word, antonym, dict):
                     antonym_tense_person[0].decode('utf8').strip(),
                     dict)
   except:
-    print "Conjugate Error: %s %s" % (word, antonym)
+    print "Conjugate Error: %s %s" % (word.encode('utf8'), antonym.encode('utf8'))
 
 def putInDict(word, antonym, dict, pos=''):
   word = word.replace('ü'.decode('utf8'), 'u')
