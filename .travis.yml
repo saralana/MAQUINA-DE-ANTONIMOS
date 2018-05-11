@@ -9,11 +9,17 @@ branches:
   only:
   - master
 
-before_script:
-  - pip install rdflib
+services:
+  - docker
 
 script:
-  - python build_antonyms/build_antonyms.py
+  - docker-compose build
+  - docker-compose up
+
+before_deploy:
+  - git config --local user.name "USER_NAME"
+  - git config --local user.email "USER@EMAIL.COM"
+  - git tag "$TRAVIS_BRANCH-$(git log --format=%h -1)"
 
 deploy:
   provider: releases
