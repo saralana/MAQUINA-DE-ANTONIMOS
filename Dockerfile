@@ -18,8 +18,8 @@ RUN cd src/ && \
 RUN make > /dev/null 2>&1
 RUN make install > /dev/null 2>&1
 
-RUN pip install hunspell
-RUN pip install rdflib
+RUN pip install hunspell > /dev/null 2>&1
+RUN pip install rdflib > /dev/null 2>&1
 
 WORKDIR /opt
 
