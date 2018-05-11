@@ -16,11 +16,17 @@ spellDictionary = hunspell.HunSpell('/usr/share/hunspell/pt_BR.dic',
 MY_PATH = os.path.dirname(os.path.realpath(__file__))
 RDF_FILE = MY_PATH + '/../assets/OntoPTv0.6_rdf/OntoPTv0.6.bin'
 TXT_FILE = MY_PATH + '/../assets/ICMC_USP/triplos.txt'
+MIL_FILE = MY_PATH + '/../assets/MIL_VERBOS_PT.txt'
 OUT_FILE = MY_PATH + '/../assets/ants.js/ants.js'
 
 mGraph = rdflib.Graph()
 with open(RDF_FILE, 'rb') as graphFile:
     mGraph = cPickle.load(graphFile)
+
+milVerbos = []
+with open(MIL_FILE, 'r') as milFile:
+    milVerbos = milFile.readlines()
+    milVerbos = [v.decode('utf8').strip() for v in milVerbos]
 
 antonymDictionary = {}
 conjugationDictionary = {}
@@ -88,6 +94,8 @@ for uri in uris:
     for word in mGraph[antonymPair[0] : URI(URI_URL + 'formaLexical')]:
       word = word.encode('utf8').decode('utf8').strip()
       for antonym in mGraph[antonymPair[1] : URI(URI_URL + 'formaLexical')]:
+        if(pos == 'verb'):
+          pos = 'verb' if (word in milVerbos or antonym in milVerbos) else ''
         antonym = antonym.encode('utf8').decode('utf8').strip()
         putInDict(word, antonym, antonymDictionary, pos)
 
