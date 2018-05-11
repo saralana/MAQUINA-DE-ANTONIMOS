@@ -1,3 +1,4 @@
+# https://github.com/jalvesaq/gconjugue
 import re
 import subprocess
 
