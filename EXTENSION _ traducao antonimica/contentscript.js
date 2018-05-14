@@ -26,10 +26,7 @@ var new = replaceAll(str, map);
 var start = document.getElementsByClassName('btn__text listen')[0].getElementsByTagName('p')[0];
 start.click();
 
-
-// ALGO NOVO FOI FALADO?
-// MUTATION OBSERVER
-// colocar o mutation observer de olho no tp.innerHTML e ver se algo mudou
+// MUTATION OBSERVER de olho no tp.innerHTML e ver se algo mudou
 // se sim, comparar com as variáveis escuta e antonimo
   
       //ENCONTRA A TAG do editor de texto que armazena o conteudo stt 
