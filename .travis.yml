@@ -9,6 +9,7 @@ branches:
   only:
   - master
 
+<<<<<<< HEAD
 before_script:
   - nvm install node
   - npm install uglify-js
@@ -19,12 +20,29 @@ script:
 
 before_deploy:
   - ./node_modules/uglify-js/bin/uglifyjs --compress --mangle --output assets/ants.js/ants.min.js -- assets/ants.js/ants.js
+=======
+services:
+  - docker
+
+script:
+  - docker-compose build
+  - docker-compose up
+
+before_deploy:
+  - git config --local user.name "USER_NAME"
+  - git config --local user.email "USER@EMAIL.COM"
+  - git tag "$TRAVIS_BRANCH-$(git log --format=%h -1)"
+>>>>>>> be92378553b0a6da1c76f1c0d01480112bdf20b5
 
 deploy:
   provider: releases
   api_key: $GHTOKEN
   file:
+<<<<<<< HEAD
     - "assets/ants.js/ants.min.js"
+=======
+    - "assets/ants.js/ants.js"
+>>>>>>> be92378553b0a6da1c76f1c0d01480112bdf20b5
   body: "$TRAVIS_BRANCH: $TRAVIS_COMMIT_MESSAGE"
   target_commitish: $TRAVIS_COMMIT
   skip_cleanup: true

@@ -1,0 +1,5 @@
+build_antonyms:
+  build: ./
+  volumes:
+    - ./build_antonyms:/opt/build_antonyms
+    - ./assets:/opt/assets

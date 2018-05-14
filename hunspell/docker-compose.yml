@@ -1,0 +1,4 @@
+compile:
+  build: ./
+  volumes:
+    - .:/opt/hunspell

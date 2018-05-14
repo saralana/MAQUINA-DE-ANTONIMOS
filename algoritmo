@@ -1,0 +1,39 @@
+//VARIAVEIS DECLARADAS
+  var.tp;
+  var escuta;
+  var antonimo;
+
+//START, MICROFONES ABERTOS
+//
+
+// ALGO NOVO FOI FALADO?
+// MUTATION OBSERVER
+// colocar o mutation observer de olho no tp.innerHTML e ver se algo mudou
+// se sim, comparar com as variáveis escuta e antonimo
+
+if ((tp.innerHTML!=escuta)) 
+
+    {
+      //ENCONTRA A TAG do editor de texto que armazena o conteudo stt 
+          var tp = document.getElementsByClassName('ql-editor')[0].getElementsByTagName('p')[0];
+          tp.innerHTML=' ';
+          tp.innerHTML= ' pode colocar qualquer coisa ';
+
+      //SALVA O CONTEUDO FALADO NA VARIAVEL ESCUTA
+          var escuta = tp.innerHTML;
+
+      //CLEAR
+      //
+
+      //FRASE ANTONIMIZADA SALVA NA VARIAVEL ANTONIMO
+        var antonimo = ' '; //palavras antonimizadas
+
+      //COPIA O ANTONIMO NO EDITOR DE TEXTO
+        tp.innerHTML= antonimo;
+
+      //MANDA COMANDO PARA QUE O ANTONIMO SEJA PRONUNCIADO
+        dictation('tts');
+
+      //CLEAR
+      //
+    }
