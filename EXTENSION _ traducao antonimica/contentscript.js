@@ -27,7 +27,7 @@ window.onload = function(){
   
   function fListen(){     
         //ENCONTRA A TAG do editor de texto que armazena o conteudo stt 
-        var notepad = document.getElementsByClassName('ql-editor');[0].getElementsByTagName('p')[0];
+        var notepad = document.getElementsByClassName('ql-editor')[0].getElementsByTagName('p')[0];
         //SALVA O CONTEUDO FALADO NA VARIAVEL ESCUTA
         var escuta = notepad.innerHTML;   
         return escuta;
