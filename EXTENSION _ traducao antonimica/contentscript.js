@@ -1,13 +1,12 @@
 //garantir que a página carrega até o final antes de iniciar o código
 window.onload = function(){ 
   
-//_debug
-  console.log("oi");
+  console.log("oi"); //debug
   
   //START _ abrir microfones
   var start = document.getElementsByClassName('btn-mic btn btn--primary-1')[0];
-//_debug
-  console.log(start);
+ 
+  console.log('escuta aberta'); //debug
   start.click();
   
   /* MUTATION OBSERVER olhando notepad
@@ -16,15 +15,20 @@ window.onload = function(){
   */
 
   fListen();
- //_debug
-  console.log(fListen());
+
+  console.log(fListen());//debug
      
   var notepadNode = document.getElementsByClassName('ql-editor');
+  console.log(notepadNode);//debug
   
   var notepad = document.getElementsByClassName('ql-editor')[0].getElementsByTagName('p')[0];
   
+  console.log(notepad);//debug
+  
   var config = { attributes: true, 
                 childList: false };
+  console.log(config); //debug
+  
   var callback = function(mutationList){
        if (mutation.type == 'atributes'){
          //_debug
@@ -37,14 +41,18 @@ window.onload = function(){
         } 
   }
 
+  console.log(callback); //debug
+  
   var observer = new MutationObserver(callback);
  
+  console.log(observer); //debug
+  
   observer.observe(
     notepad, 
     config
   );
   
-  
+
   function fListen(){     
         //ENCONTRA A TAG do editor de texto que armazena o conteudo stt 
         //SALVA O CONTEUDO FALADO NA VARIAVEL ESCUTA
