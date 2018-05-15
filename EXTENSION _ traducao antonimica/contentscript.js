@@ -13,13 +13,15 @@ window.onload = function(){
   
   var notepadNode = document.getElementsByClassName('ql-editor');
   
+  var notepad = document.getElementsByClassName('ql-editor')[0].getElementsByTagName('p')[0];
+  
   fListen();
   console.log(fListen());
   
   var observer = new MutationObserver(function(mutations){
     if (mutations.target.getAttribute('p')!=antonimo()){
           speech(antonimo());
-          clear();
+          fClear();
     }
   });
   
@@ -27,7 +29,6 @@ window.onload = function(){
   
   function fListen(){     
         //ENCONTRA A TAG do editor de texto que armazena o conteudo stt 
-        var notepad = document.getElementsByClassName('ql-editor')[0].getElementsByTagName('p')[0];
         //SALVA O CONTEUDO FALADO NA VARIAVEL ESCUTA
         var escuta = notepad.innerHTML;   
         return escuta;
@@ -53,8 +54,7 @@ window.onload = function(){
     return;
   }
   
-  function clear(){     
-        //CLEAR
+  function fClear(){     
         notepad.innerHTML = '';     
   }
 }
