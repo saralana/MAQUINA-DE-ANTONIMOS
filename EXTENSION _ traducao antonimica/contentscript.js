@@ -18,26 +18,37 @@ window.onload = function(){
   fListen();
  //_debug
   console.log(fListen());
-  
-  var observer = new MutationObserver(function(mutations){
-    if (mutations.target.getAttribute('p')!=antonimo()){
-          speech(antonimo());
-          fClear();
-    }
-  });
-    
+     
   var notepadNode = document.getElementsByClassName('ql-editor');
   
   var notepad = document.getElementsByClassName('ql-editor')[0].getElementsByTagName('p')[0];
   
+  var config = { attributes: true, 
+                childList: false };
+  var callback = function(mutationList){
+       if (mutation.type == 'atributes'){
+         //_debug
+         console.log('texto mudou')
+         var temp = fListen();
+         if (temp !=antonimo()){
+            speech(antonimo());
+            fClear();
+         }
+        } 
+  }
+
+  var observer = new MutationObserver(callback);
+ 
   observer.observe(
-    notepadNode, 
-    notepad
+    notepad, 
+    config
   );
+  
   
   function fListen(){     
         //ENCONTRA A TAG do editor de texto que armazena o conteudo stt 
         //SALVA O CONTEUDO FALADO NA VARIAVEL ESCUTA
+        var notepad = document.getElementsByClassName('ql-editor')[0].getElementsByTagName('p')[0];
         var escuta = notepad.innerHTML;   
         return escuta;
   }
