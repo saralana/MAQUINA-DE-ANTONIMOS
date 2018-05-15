@@ -54,7 +54,11 @@ window.onload = function(){
 
             //MANDA COMANDO PARA QUE O ANTONIMO SEJA PRONUNCIADO
             dictation('tts');
-
+            /* pode usar dictation('tts') OU
+              var fala = document.getElementsByClassName('btn btn--primary type--uppercase')[0];
+              fala.click();
+            */
+  
             //CLEAR
             notepad.innerHTML = '';     
 }
