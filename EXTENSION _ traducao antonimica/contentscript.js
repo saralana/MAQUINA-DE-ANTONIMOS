@@ -1,8 +1,12 @@
+//garantir que a página carrega até o final antes de iniciar o código
 window.onload = function(){ 
   
+//_debug
   console.log("oi");
-  //START
+  
+  //START _ abrir microfones
   var start = document.getElementsByClassName('btn-mic btn btn--primary-1')[0];
+//_debug
   console.log(start);
   start.click();
   
@@ -10,12 +14,9 @@ window.onload = function(){
      se algo mudou, comparar com as variáveis escuta e antonimo
      https://www.javascripture.com/MutationObserver
   */
-  
-  var notepadNode = document.getElementsByClassName('ql-editor');
-  
-  var notepad = document.getElementsByClassName('ql-editor')[0].getElementsByTagName('p')[0];
-  
+
   fListen();
+ //_debug
   console.log(fListen());
   
   var observer = new MutationObserver(function(mutations){
@@ -24,8 +25,15 @@ window.onload = function(){
           fClear();
     }
   });
+    
+  var notepadNode = document.getElementsByClassName('ql-editor');
   
-  observer.observe(notepadNode, notepad);
+  var notepad = document.getElementsByClassName('ql-editor')[0].getElementsByTagName('p')[0];
+  
+  observer.observe(
+    notepadNode, 
+    notepad
+  );
   
   function fListen(){     
         //ENCONTRA A TAG do editor de texto que armazena o conteudo stt 
