@@ -1,28 +1,3 @@
-/* http://stackoverflow.com/questions/15604140/replace-multiple-strings-with-multiple-other-strings
-
-https://github.com/thalida/WordBird/blob/master/extension/content_script.js
-
-String.prototype.replaceAll = function(search, replacement) {
-    var target = this;
-    return target.replace(new RegExp(search, 'g'), replacement);
-};
-
-function replaceAll(str, antonimos){
-    for(key in antonimos){
-        str = str.replaceAll(key, map[key]);
-    }
-    return str;
-}
-//testing...
-var str = "bat, ball, cat";
-var antonimos = {
-    'bat' : 'foo',
-    'ball' : 'boo',
-    'cat' : 'bar'
-};
-var new = replaceAll(str, map);
-//result: "foo, boo, bar"
-*/
 
 window.onload = function(){ 
   console.log("oi");
@@ -62,3 +37,30 @@ window.onload = function(){
             //CLEAR
             notepad.innerHTML = '';     
 }
+
+
+/* http://stackoverflow.com/questions/15604140/replace-multiple-strings-with-multiple-other-strings
+
+https://github.com/thalida/WordBird/blob/master/extension/content_script.js
+
+String.prototype.replaceAll = function(search, replacement) {
+    var target = this;
+    return target.replace(new RegExp(search, 'g'), replacement);
+};
+
+function replaceAll(str, antonimos){
+    for(key in antonimos){
+        str = str.replaceAll(key, map[key]);
+    }
+    return str;
+}
+//testing...
+var str = "bat, ball, cat";
+var antonimos = {
+    'bat' : 'foo',
+    'ball' : 'boo',
+    'cat' : 'bar'
+};
+var new = replaceAll(str, map);
+//result: "foo, boo, bar"
+*/
