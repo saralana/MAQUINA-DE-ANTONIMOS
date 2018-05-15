@@ -4,8 +4,8 @@ window.onload = function(){
   
             //START
             var start = document.getElementsByClassName('btn__text listen')[0].getElementsByTagName('p')[0];
-              console.log(start);
-            start.click();
+              //console.log(start);
+            //start.click();
 
             //ENCONTRA A TAG do editor de texto que armazena o conteudo stt 
             var notepad = document.getElementsByClassName('ql-editor')[0].getElementsByTagName('p')[0];
@@ -28,11 +28,11 @@ window.onload = function(){
             notepad.innerHTML= antonimo;
 
             //MANDA COMANDO PARA QUE O ANTONIMO SEJA PRONUNCIADO
-            dictation('tts');
-            /* pode usar dictation('tts') OU
-              var fala = document.getElementsByClassName('btn btn--primary type--uppercase')[0];
-              fala.click();
-            */
+            // dictation('tts');
+            // pode usar dictation('tts') OU
+            var fala = document.getElementsByClassName('btn btn--primary type--uppercase')[0];
+            fala.click();
+            
   
             //CLEAR
             notepad.innerHTML = '';     
