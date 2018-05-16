@@ -38,9 +38,11 @@ window.onload = function(){
          console.log('texto mudou');//debug
          var temp = fListen();
          console.log(temp);//debug
-         console.log(fAntonimo());//debug
-           if (temp !=fAntonimo()){
-              fSpeech(fAntonimo());
+         var tempAntonimo = fAntonimo();
+         console.log(tempAntonimo);//debug
+           if (temp !=tempAntonimo){
+              console.log('entrou no if');//debug
+              fSpeech(tempAntonimo);
               fClear();
            }
         }
