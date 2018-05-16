@@ -14,9 +14,8 @@ window.onload = function(){
      https://www.javascripture.com/MutationObserver
   */
 
-  fListen();
+  //fListen();
 
-  console.log(fListen());//debug
   /*   
   var notepadNode = document.getElementsByClassName('ql-editor');
   console.log(notepadNode);//debug
@@ -31,20 +30,35 @@ window.onload = function(){
   
   console.log(config); //debug
   
+  console.log('escutando..');//debug   
+  
+  var temp = fListen();
+  console.log(temp);//debug
+  
+  var tempAntonimo = fAntonimo(temp);
+  console.log(tempAntonimo);//debug 
+  
   var callback = function(mutations){
     for(var mutation of mutations) {
        if (mutation.type == 'childList'){
-         //_debug
          console.log('texto mudou');//debug
+         /*
          var temp = fListen();
          console.log(temp);//debug
-         var tempAntonimo = fAntonimo();
+         var tempAntonimo = fAntonimo(temp);
          console.log(tempAntonimo);//debug
-           if (temp !=tempAntonimo){
+         */
+           if (notepad.innerHTML !=tempAntonimo){
               console.log('entrou no if');//debug
-              fSpeech(tempAntonimo);
+              var tempAntonimo = fAntonimo(notepad.innerHTML);
+              //fSpeech(tempAntonimo);
+              fSpeech();
               fClear();
            }
+          else {
+             console.log('texto ja antonimizado');//debug
+             return;
+          } 
         }
     }
   }
@@ -77,14 +91,19 @@ window.onload = function(){
         return antonimo;
   }
     
-  function fSpeech(texto){
+  //function fSpeech(texto){
+  function fSpeech(){
+        console.log('entrou para a fala');//debug
         //COPIA O TEXTO NO EDITOR DE TEXTO
-        notepad.innerHTML= texto;
+        //notepad.innerHTML= texto;
         //MANDA COMANDO PARA QUE O ANTONIMO SEJA PRONUNCIADO
         // dictation('tts');
         // pode usar dictation('tts') OU
-        var fala = document.getElementsByClassName('btn btn--primary type--uppercase')[0];
+        
+        var fala = document.getElementsByClassName('btn__text btn-tts')[0];
         fala.click();
+        
+        //dictation('tts');
         console.log('fSpeech');//debug
     return;
   }
