@@ -26,13 +26,13 @@ window.onload = function(){
     var tempAntonimo = fAntonimo(temp);
     console.log(tempAntonimo);//debug 
     */
-    tempAntonimo = ' ';
+    //tempAntonimo = ' ';
     //teste
 
 
     var callback = function(mutations){
-      for(var mutation of mutations) {
-         if (mutation.type == 'childList'){
+     //for(var mutation of mutations) {
+         if (mutations.type == 'childList'){
            console.log('texto mudou');//debug
            /*
            var temp = fListen();
@@ -41,13 +41,14 @@ window.onload = function(){
            console.log(tempAntonimo);//debug
            */
 
-             if (notepad.innerHTML != tempAntonimo){
+           //  if (notepad.innerHTML != tempAntonimo){
+              if (notepad.innerHTML != ''){
                 console.log('entrou no if');//debug
-                var tempAntonimo = fAntonimo(notepad.innerHTML);
+                //var tempAntonimo = fAntonimo(notepad.innerHTML);
                 //fSpeech(tempAntonimo);
                 fSpeech();
+                notepad.innerHTML='';
                 console.log('saiu da fala');//debug
-                setTimeout(fClear, 5000);
              }
             else {
                console.log('texto ja antonimizado');//debug
@@ -55,7 +56,7 @@ window.onload = function(){
             } 
 
           }
-      }
+      //}
     }
 
     console.log(callback); //debug
@@ -79,9 +80,9 @@ window.onload = function(){
           //Código para tradução antonimica 
           // ...
           //FRASE ANTONIMIZADA SALVA NA VARIAVEL ANTONIMO
-          antonimo = 'não' + listening;
+          antonimo = '';
           notepad.innerHTML = antonimo;
-          console.log(antonimo);//debug
+          console.log('antonimo');//debug
           return antonimo;
     }
 
