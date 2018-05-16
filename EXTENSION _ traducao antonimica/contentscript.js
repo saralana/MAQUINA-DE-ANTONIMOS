@@ -38,6 +38,7 @@ window.onload = function(){
          console.log('texto mudou');//debug
          var temp = fListen();
          console.log(temp);//debug
+         console.log(fAntonimo());//debug
            if (temp !=fAntonimo()){
               fSpeech(fAntonimo());
               fClear();
@@ -59,7 +60,8 @@ window.onload = function(){
         //ENCONTRA A TAG do editor de texto que armazena o conteudo stt 
         //SALVA O CONTEUDO FALADO NA VARIAVEL ESCUTA
         var notepad = document.getElementsByClassName('ql-editor')[0].getElementsByTagName('p')[0];
-        var escuta = notepad.innerHTML;   
+        var escuta = notepad.innerHTML;  
+        console.log('fListen');//debug
         return escuta;
   }
 
@@ -67,8 +69,9 @@ window.onload = function(){
         //Código para tradução antonimica 
         // ...
         //FRASE ANTONIMIZADA SALVA NA VARIAVEL ANTONIMO
-        listening = fListen();
+        listening = 'traducao antonimica';
         antonimo = listening;
+        console.log('fAntonimo');//debug
         return antonimo;
   }
     
@@ -80,58 +83,16 @@ window.onload = function(){
         // pode usar dictation('tts') OU
         var fala = document.getElementsByClassName('btn btn--primary type--uppercase')[0];
         fala.click();
+        console.log('fSpeech');//debug
     return;
   }
   
   function fClear(){     
-        notepad.innerHTML = '';     
+        notepad.innerHTML = '';  
+        console.log('fClear');//debug
+    return;
   }
 }
-
-
-/* CODIGO QUE FUNCIONOU DE ACESSO ÀS TAGS E BOTOES
-
-window.onload = function(){ 
-  
-  console.log("oi");
-  //START
-  var start = document.getElementsByClassName('btn-mic btn btn--primary-1')[0];
-  //console.log(start);
-  start.click();
-  
-  // MUTATION OBSERVER olhando notepad
-  // se algo mudou, comparar com as variáveis escuta e antonimo
-     https://www.javascripture.com/MutationObserver
-  
-    
-        //ENCONTRA A TAG do editor de texto que armazena o conteudo stt 
-        var notepad = document.getElementsByClassName('ql-editor')[0].getElementsByTagName('p')[0];
-   
-        //SALVA O CONTEUDO FALADO NA VARIAVEL ESCUTA
-        var escuta = notepad.innerHTML;
-            
-        //CLEAR
-        notepad.innerHTML = '';
-
-            //Código para tradução antonimica 
-
-        //FRASE ANTONIMIZADA SALVA NA VARIAVEL ANTONIMO
-        var antonimo = 'outro teste';
-
-        //COPIA O ANTONIMO NO EDITOR DE TEXTO
-        notepad.innerHTML= antonimo;
-
-        //MANDA COMANDO PARA QUE O ANTONIMO SEJA PRONUNCIADO
-        // dictation('tts');
-        // pode usar dictation('tts') OU
-        var fala = document.getElementsByClassName('btn btn--primary type--uppercase')[0];
-        fala.click();
-            
-        //CLEAR
-        notepad.innerHTML = '';     
-
-}
-*/
 
 
 /*  REPLACING WORDS
