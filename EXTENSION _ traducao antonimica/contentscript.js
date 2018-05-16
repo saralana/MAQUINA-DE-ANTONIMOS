@@ -94,16 +94,14 @@ window.onload = function(){
   //function fSpeech(texto){
   function fSpeech(){
         console.log('entrou para a fala');//debug
-        //COPIA O TEXTO NO EDITOR DE TEXTO
+        //COPIA O TEXTO NO notepad
         //notepad.innerHTML= texto;
         //MANDA COMANDO PARA QUE O ANTONIMO SEJA PRONUNCIADO
         // dictation('tts');
-        // pode usar dictation('tts') OU
         
         var fala = document.getElementsByClassName('btn__text btn-tts')[0];
         fala.click();
-        
-        //dictation('tts');
+
         console.log('fSpeech');//debug
     return;
   }
