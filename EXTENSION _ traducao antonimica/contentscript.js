@@ -1,26 +1,11 @@
 //garantir que a página carrega até o final antes de iniciar o código
 window.onload = function(){ 
-  
+
   console.log("oi"); //debug
   
-  //START _ abrir microfones
-  var start = document.getElementsByClassName('btn-mic btn btn--primary-1')[0];
- 
-  console.log('escuta aberta'); //debug
-  start.click();
-  
-  /* MUTATION OBSERVER olhando notepad
-     se algo mudou, comparar com as variáveis escuta e antonimo
-     https://www.javascripture.com/MutationObserver
-  */
-
-  //fListen();
-
-  /*   
-  var notepadNode = document.getElementsByClassName('ql-editor');
-  console.log(notepadNode);//debug
-  */
   var notepad = document.getElementsByClassName('ql-editor')[0].getElementsByTagName('p')[0];
+  fClear();
+  
   
   console.log(notepad);//debug
   
@@ -29,6 +14,10 @@ window.onload = function(){
                };
   
   console.log(config); //debug
+  
+  //START _ abrir microfones
+  var start = document.getElementsByClassName('btn-mic btn btn--primary-1')[0];
+  start.click();
   
   console.log('escutando..');//debug   
   
@@ -53,6 +42,7 @@ window.onload = function(){
               var tempAntonimo = fAntonimo(notepad.innerHTML);
               //fSpeech(tempAntonimo);
               fSpeech();
+              wait(10000);
               fClear();
            }
           else {
@@ -85,9 +75,9 @@ window.onload = function(){
         //Código para tradução antonimica 
         // ...
         //FRASE ANTONIMIZADA SALVA NA VARIAVEL ANTONIMO
-        listening = 'traducao antonimica';
-        antonimo = listening;
-        console.log('fAntonimo');//debug
+        antonimo = 'não' + listening;
+        notepad.innerHTML = antonimo;
+        console.log(antonimo);//debug
         return antonimo;
   }
     
@@ -95,7 +85,7 @@ window.onload = function(){
   function fSpeech(){
         console.log('entrou para a fala');//debug
         //COPIA O TEXTO NO notepad
-        //notepad.innerHTML= texto;
+        notepad.innerHTML= texto;
         //MANDA COMANDO PARA QUE O ANTONIMO SEJA PRONUNCIADO
         // dictation('tts');
         
