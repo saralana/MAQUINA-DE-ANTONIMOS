@@ -17,28 +17,33 @@ window.onload = function(){
   fListen();
 
   console.log(fListen());//debug
-     
+  /*   
   var notepadNode = document.getElementsByClassName('ql-editor');
   console.log(notepadNode);//debug
-  
+  */
   var notepad = document.getElementsByClassName('ql-editor')[0].getElementsByTagName('p')[0];
   
   console.log(notepad);//debug
   
-  var config = { attributes: true, 
-                childList: false };
+  var config = {childList: true,
+                  subtree: true
+               };
+  
   console.log(config); //debug
   
-  var callback = function(mutationList){
-       if (mutation.type == 'atributes'){
+  var callback = function(mutations){
+    for(var mutation of mutations) {
+       if (mutation.type == 'childList'){
          //_debug
-         console.log('texto mudou')
+         console.log('texto mudou');//debug
          var temp = fListen();
-         if (temp !=antonimo()){
-            speech(antonimo());
-            fClear();
-         }
-        } 
+         console.log(temp);//debug
+           if (temp !=fAntonimo()){
+              fSpeech(fAntonimo());
+              fClear();
+           }
+        }
+    }
   }
 
   console.log(callback); //debug
@@ -47,10 +52,7 @@ window.onload = function(){
  
   console.log(observer); //debug
   
-  observer.observe(
-    notepad, 
-    config
-  );
+  observer.observe(notepad, config);
   
 
   function fListen(){     
