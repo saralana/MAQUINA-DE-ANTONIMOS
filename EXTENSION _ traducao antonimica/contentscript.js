@@ -4,8 +4,7 @@ window.onload = function(){
     console.log("oi"); //debug
 
     var notepad = document.getElementsByClassName('ql-editor')[0].getElementsByTagName('p')[0];
-    fClear();
-
+    notepad.innerHTML != '';
 
     console.log(notepad);//debug
 
@@ -20,24 +19,16 @@ window.onload = function(){
     start.click();
     console.log('microfones abertos..');//debug 
 
-    /*
-    var temp = fListen();
-    console.log(temp);//debug
-    var tempAntonimo = fAntonimo(temp);
-    console.log(tempAntonimo);//debug 
-    */
-    //tempAntonimo = ' ';
-    //teste
-
-
     var callback = function(mutations){
           
            console.log('texto mudou');//debug
            console.log(notepad.innerHTML);//debug
            fSpeech();
-           if (notepad != ' ' || notepad != '' || notepad!= '<br>')
-             fClear();
+      /*
+           if (notepad.innerHTML != '' && notepad.innerHTML != ' ' && notepad.innerHTML != '<br>')
+             notepad.innerHTML = '';*/
       
+    }
            /*
            var tempAntonimo = fAntonimo(notepad.innerHTML);
            console.log(tempAntonimo);//debug
@@ -58,8 +49,6 @@ window.onload = function(){
                } 
 
             }*/
-    }
-
 
     console.log(callback); //debug
 
@@ -81,29 +70,33 @@ window.onload = function(){
 
     //function fSpeech(texto){
     function fSpeech(){
-          console.log('entrou para a fala');//debug
+         console.log('entrou para a fala');//debug
           //COPIA O TEXTO NO notepad
           // notepad.innerHTML= texto;
           //MANDA COMANDO PARA QUE O ANTONIMO SEJA PRONUNCIADO
           // dictation('tts');
-
-          var fala = document.getElementsByClassName('btn__text btn-tts')[0];
-          fala.click();
-          notepad.innerHTML = '';
-
-          console.log('fSpeech');//debug
+         var tts = document.getElementsByClassName('btn__text btn-tts')[0];
+         tts.click();
+          //notepad.innerHTML = '';
+         console.log('fSpeech' + notepad.innerHTML);//debug
+         if (notepad.innerHTML != '' && notepad.innerHTML != ' ' && notepad.innerHTML != '<br>'){ 
+           notepad.innerHTML = '';
+           console.log('clear');//debug
+         }
       return;
     }
+
+}
+
+
+/*
 
     function fClear(){     
           notepad.innerHTML = '<br>';  
           console.log('fClear');//debug
       return;
     }
-}
-
-
-/*
+    
     function fListen(){     
           //ENCONTRA A TAG do editor de texto que armazena o conteudo stt 
           //SALVA O CONTEUDO FALADO NA VARIAVEL ESCUTA
