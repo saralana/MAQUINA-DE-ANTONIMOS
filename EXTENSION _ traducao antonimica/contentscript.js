@@ -22,9 +22,12 @@ window.onload = function(){
     var callback = function(mutations){
            console.log('texto mudou');//debug
            console.log(notepad.innerHTML);//debug
-           //antonimo = fAntonimo();
-           fSpeech();
-           fClear();    
+           if (notepad.innerHTML != antonimo)
+              antonimo = fAntonimo();
+           else {
+              fSpeech();
+              fClear();
+           }
     }
     var observer = new MutationObserver(callback);
     observer.observe(notepad, config);
@@ -33,10 +36,12 @@ window.onload = function(){
           //Código para tradução antonimica 
           // ...
           //FRASE ANTONIMIZADA SALVA NA VARIAVEL ANTONIMO
-          tradAntonimo = 'não' + notepad.innerHTML;
-          notepad.innerHTML = tradAntonimo;
-          console.log(tradAntonimo);//debug
-          return tradAntonimo;
+          if (notepad.innerHTML != '' && notepad.innerHTML != '<br>'){ 
+            tradAntonimo = 'não' + notepad.innerHTML;
+            notepad.innerHTML = tradAntonimo;
+            console.log(tradAntonimo);//debug
+            return tradAntonimo;
+          }
     }
     
   function fSpeech(){
