@@ -1,6 +1,5 @@
 .DS_*
 package*json
 node_modules
-assets/ants.js/
 !.gitkeep
 ants.js
