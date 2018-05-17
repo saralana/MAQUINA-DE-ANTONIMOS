@@ -1,11 +1,12 @@
 //garantir que a página carrega até o final antes de iniciar o código
 window.onload = function(){ 
-
+  
+    import { ants } from 'ants'; 
+  
     var notepad = document.getElementsByClassName('ql-editor')[0].getElementsByTagName('p')[0];
     notepad.innerHTML != '';
 
-    fClear();
-  
+    fClear(); 
     var config = {childList: true,
                     subtree: true};
 
@@ -51,8 +52,14 @@ window.onload = function(){
            }
       }  
 
-    function fReplace(texto){
-        var translation = texto.replace(/palavra/gi, "antonimo");
+    function fReplace(frase){
+        var words = frase.split(" ");
+        console.log(words);
+        for (var i = 0; i < words.length; i++) {
+          if (words[i]!='')
+            words[i] = words[i].replace(words[i], "antônimo");
+        }
+        var translation = words.join(' ');console.log(words[i]);
         return translation;
       }
 }
