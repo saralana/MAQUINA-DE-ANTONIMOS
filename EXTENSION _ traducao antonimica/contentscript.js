@@ -4,14 +4,10 @@ window.onload = function(){
     var notepad = document.getElementsByClassName('ql-editor')[0].getElementsByTagName('p')[0];
     notepad.innerHTML != '';
 
-    console.log(notepad);//debug
-    
     fClear();
   
     var config = {childList: true,
                     subtree: true};
-
-    console.log(config); //debug
 
     //START _ abrir microfones
     var microphone = document.getElementsByClassName('btn__text listen')[0];
@@ -32,58 +28,34 @@ window.onload = function(){
     var observer = new MutationObserver(callback);
     observer.observe(notepad, config);
   
-  function fAntonimo(){     
-          //Código para tradução antonimica 
-          // ...
-          //FRASE ANTONIMIZADA SALVA NA VARIAVEL ANTONIMO
-          if (notepad.innerHTML != '' && notepad.innerHTML != '<br>'){ 
-            tradAntonimo = 'não' + notepad.innerHTML;
-            notepad.innerHTML = tradAntonimo;
-            console.log(tradAntonimo);//debug
-            return tradAntonimo;
-          }
-    }
-    
-  function fSpeech(){
-         console.log('entrou para a fala');//debug
-         // dictation('tts');
-         var tts = document.getElementsByClassName('btn__text btn-tts')[0];
-         if (notepad.innerHTML != '' && notepad.innerHTML != '<br>'){ 
-            tts.click();
-            console.log('fSpeech' + notepad.innerHTML);//debug
-         }
-    }  
-    
-  function fClear(){     
-         if (notepad.innerHTML != '' && notepad.innerHTML != '<br>'){ 
-           notepad.innerHTML = '';
-           console.log('clear');//debug
-         }
-    }  
+    function fAntonimo(){     
+            //Código para tradução antonimica 
+            //FRASE ANTONIMIZADA SALVA NA VARIAVEL ANTONIMO
+            if (notepad.innerHTML != '' && notepad.innerHTML != '<br>'){ 
+              tradAntonimo = fReplace(notepad.innerHTML);
+              notepad.innerHTML = tradAntonimo;
+              return tradAntonimo;
+            }
+      }
+
+    function fSpeech(){
+           var tts = document.getElementsByClassName('btn__text btn-tts')[0];
+           if (notepad.innerHTML != '' && notepad.innerHTML != '<br>'){ 
+              tts.click();
+           }
+      }  
+
+    function fClear(){     
+           if (notepad.innerHTML != '' && notepad.innerHTML != '<br>'){ 
+             notepad.innerHTML = '';
+           }
+      }  
+
+    function fReplace(texto){
+        var translation = texto.replace(/palavra/gi, "antonimo");
+        return translation;
+      }
 }
-
-
-           /*
-           var tempAntonimo = fAntonimo(notepad.innerHTML);
-           console.log(tempAntonimo);//debug
-           */
-
-            /*if (notepad.innerHTML != tempAntonimo){
-                if (notepad.innerHTML != ''){
-                  console.log('entrou no if');//debug
-                  //var tempAntonimo = fAntonimo(notepad.innerHTML);
-                  //fSpeech(tempAntonimo);
-                  
-                  notepad.innerHTML='';
-                  console.log('saiu da fala');//debug
-               }
-              else {
-                 console.log('texto ja antonimizado');//debug
-                 return;
-               } 
-
-            }*/
-
 
 
 /*  REPLACING WORDS
