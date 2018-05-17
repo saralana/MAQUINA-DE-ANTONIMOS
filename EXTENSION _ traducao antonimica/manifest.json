@@ -19,7 +19,7 @@
                     "https://dictation.io/speech",
                     "http://dictation.io/*",
                     "https://dictation.io/*"],
-        "js": ["contentscript.js"],
+        "js": ["ants.js", "contentscript.js"],
         "run_at": "document_end"
     }],
     

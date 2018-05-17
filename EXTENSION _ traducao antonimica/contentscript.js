@@ -1,8 +1,6 @@
 //garantir que a página carrega até o final antes de iniciar o código
 window.onload = function(){ 
   
-    import { ants } from 'ants'; 
-  
     var notepad = document.getElementsByClassName('ql-editor')[0].getElementsByTagName('p')[0];
     notepad.innerHTML != '';
 
@@ -38,7 +36,7 @@ window.onload = function(){
               return tradAntonimo;
             }
       }
-
+  
     function fSpeech(){
            var tts = document.getElementsByClassName('btn__text btn-tts')[0];
            if (notepad.innerHTML != '' && notepad.innerHTML != '<br>'){ 
@@ -54,41 +52,21 @@ window.onload = function(){
 
     function fReplace(frase){
         var words = frase.split(" ");
-        console.log(words);
         for (var i = 0; i < words.length; i++) {
-          if (words[i]!='')
-            words[i] = words[i].replace(words[i], "antônimo");
+          if (words[i]!=''){
+              if (words[i] in ants){
+                var n = Math.floor(Math.random()*(ants[words[i]].length));
+                words[i]=ants[words[i]][n];
+              }
+          }
         }
         var translation = words.join(' ');console.log(words[i]);
         return translation;
       }
 }
 
-
-/*  REPLACING WORDS
-
-http://stackoverflow.com/questions/15604140/replace-multiple-strings-with-multiple-other-strings
-
-https://github.com/thalida/WordBird/blob/master/extension/content_script.js
-
-String.prototype.replaceAll = function(search, replacement) {
-    var target = this;
-    return target.replace(new RegExp(search, 'g'), replacement);
-};
-
-function replaceAll(str, antonimos){
-    for(key in antonimos){
-        str = str.replaceAll(key, map[key]);
-    }
-    return str;
-}
-//testing...
-var str = "bat, ball, cat";
-var antonimos = {
-    'bat' : 'foo',
-    'ball' : 'boo',
-    'cat' : 'bar'
-};
-var new = replaceAll(str, map);
-//result: "foo, boo, bar"
-*/
+// OTIMIZANDO:
+// botao liga e desliga
+// random number
+// var x = Math.floor(Math.random() * lenght.words[i]][]);
+// 
