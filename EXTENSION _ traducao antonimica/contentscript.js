@@ -1,34 +1,63 @@
 //garantir que a página carrega até o final antes de iniciar o código
 window.onload = function(){ 
 
-    console.log("oi"); //debug
-
     var notepad = document.getElementsByClassName('ql-editor')[0].getElementsByTagName('p')[0];
     notepad.innerHTML != '';
 
     console.log(notepad);//debug
-
+    
+    fClear();
+  
     var config = {childList: true,
-                    subtree: true
-                 };
+                    subtree: true};
 
     console.log(config); //debug
 
     //START _ abrir microfones
-    var start = document.getElementsByClassName('btn-mic btn btn--primary-1')[0];
-    start.click();
+    var microphone = document.getElementsByClassName('btn__text listen')[0];
+    microphone.click();
     console.log('microfones abertos..');//debug 
-
+    antonimo = '';
+  
     var callback = function(mutations){
-          
            console.log('texto mudou');//debug
            console.log(notepad.innerHTML);//debug
+           //antonimo = fAntonimo();
            fSpeech();
-      /*
-           if (notepad.innerHTML != '' && notepad.innerHTML != ' ' && notepad.innerHTML != '<br>')
-             notepad.innerHTML = '';*/
-      
+           fClear();    
     }
+    var observer = new MutationObserver(callback);
+    observer.observe(notepad, config);
+  
+  function fAntonimo(){     
+          //Código para tradução antonimica 
+          // ...
+          //FRASE ANTONIMIZADA SALVA NA VARIAVEL ANTONIMO
+          tradAntonimo = 'não' + notepad.innerHTML;
+          notepad.innerHTML = tradAntonimo;
+          console.log(tradAntonimo);//debug
+          return tradAntonimo;
+    }
+    
+  function fSpeech(){
+         console.log('entrou para a fala');//debug
+         // dictation('tts');
+         var tts = document.getElementsByClassName('btn__text btn-tts')[0];
+         if (notepad.innerHTML != '' && notepad.innerHTML != '<br>'){ 
+            tts.click();
+            console.log('fSpeech' + notepad.innerHTML);//debug
+         }
+    }  
+    
+  function fClear(){     
+         if (notepad.innerHTML != '' && notepad.innerHTML != '<br>'){ 
+           notepad.innerHTML = '';
+           console.log('clear');//debug
+         }
+    }  
+}
+
+
            /*
            var tempAntonimo = fAntonimo(notepad.innerHTML);
            console.log(tempAntonimo);//debug
@@ -50,62 +79,7 @@ window.onload = function(){
 
             }*/
 
-    console.log(callback); //debug
 
-    var observer = new MutationObserver(callback);
-
-    console.log(observer); //debug
-
-    observer.observe(notepad, config);
-
-    function fAntonimo(listening){     
-          //Código para tradução antonimica 
-          // ...
-          //FRASE ANTONIMIZADA SALVA NA VARIAVEL ANTONIMO
-          antonimo = '';
-          notepad.innerHTML = antonimo;
-          console.log('antonimo');//debug
-          return antonimo;
-    }
-
-    //function fSpeech(texto){
-    function fSpeech(){
-         console.log('entrou para a fala');//debug
-          //COPIA O TEXTO NO notepad
-          // notepad.innerHTML= texto;
-          //MANDA COMANDO PARA QUE O ANTONIMO SEJA PRONUNCIADO
-          // dictation('tts');
-         var tts = document.getElementsByClassName('btn__text btn-tts')[0];
-         tts.click();
-          //notepad.innerHTML = '';
-         console.log('fSpeech' + notepad.innerHTML);//debug
-         if (notepad.innerHTML != '' && notepad.innerHTML != ' ' && notepad.innerHTML != '<br>'){ 
-           notepad.innerHTML = '';
-           console.log('clear');//debug
-         }
-      return;
-    }
-
-}
-
-
-/*
-
-    function fClear(){     
-          notepad.innerHTML = '<br>';  
-          console.log('fClear');//debug
-      return;
-    }
-    
-    function fListen(){     
-          //ENCONTRA A TAG do editor de texto que armazena o conteudo stt 
-          //SALVA O CONTEUDO FALADO NA VARIAVEL ESCUTA
-          var notepad = document.getElementsByClassName('ql-editor')[0].getElementsByTagName('p')[0];
-          var escuta = notepad.innerHTML;  
-          console.log('fListen');//debug
-          return escuta;
-    }
-*/
 
 /*  REPLACING WORDS
 
