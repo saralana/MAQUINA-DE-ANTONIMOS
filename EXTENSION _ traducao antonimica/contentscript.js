@@ -7,7 +7,11 @@ window.onload = function(){
     fClear(); 
     var config = {childList: true,
                     subtree: true};
-
+  
+             var language = "Google português do Brasil";
+           document.getElementById("voiceselect").options = language;
+           console.log('fala portugues');//debug 
+  
     //START _ abrir microfones
     var microphone = document.getElementsByClassName('btn__text listen')[0];
     microphone.click();
@@ -38,6 +42,13 @@ window.onload = function(){
       }
   
     function fSpeech(){
+           var language = "Google português do Brasil";
+           //var language = "Luciana";
+           document.getElementById("voiceselect").options = language;
+           console.log('fala portugues');//debug 
+           // <option value="Google português do Brasil" data-lang="pt-br">Google português do Brasil</option>
+           // desliga o microfone
+           //microphone.click();
            var tts = document.getElementsByClassName('btn__text btn-tts')[0];
            if (notepad.innerHTML != '' && notepad.innerHTML != '<br>'){ 
               tts.click();
@@ -64,9 +75,3 @@ window.onload = function(){
         return translation;
       }
 }
-
-// OTIMIZANDO:
-// botao liga e desliga
-// random number
-// var x = Math.floor(Math.random() * lenght.words[i]][]);
-// 
