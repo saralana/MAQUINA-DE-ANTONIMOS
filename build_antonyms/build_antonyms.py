@@ -45,9 +45,10 @@ def conjugateAntonyms(word, antonym, dict):
   tenses = ['Presente do Indicativo',
             'Perfeito do Indicativo',
             'Imperfeito do Indicativo',
-            'Futuro do Presente do Indicativo']
+            'Futuro do Presente do Indicativo',
+            'Paradigm']
 
-  persons = ['eu', 'ele', 'nós', 'eles']
+  persons = ['eu', 'ele', 'nós', 'eles', 'gerúndio:']
 
   if(word not in conjugationDictionary):
     conjugationDictionary[word] = subprocess.check_output('conjugar %s' % word, shell=True)

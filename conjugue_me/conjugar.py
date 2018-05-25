@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 # https://github.com/jalvesaq/gconjugue
 import re
 import subprocess
@@ -9,9 +11,10 @@ def conjugateAntonyms(verb, antonym):
   tenses = ['Presente do Indicativo',
             'Perfeito do Indicativo',
             'Imperfeito do Indicativo',
-            'Futuro do Presente do Indicativo']
+            'Futuro do Presente do Indicativo',
+            'Paradigm']
   
-  persons = ['eu', 'ele', 'nós', 'eles']
+  persons = ['eu', 'ele', 'nós', 'eles', 'gerúndio:']
   
   antonym_pairs = []
   
