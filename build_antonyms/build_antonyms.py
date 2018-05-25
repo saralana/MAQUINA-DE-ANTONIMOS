@@ -29,10 +29,11 @@ with open(MIL_FILE, 'r') as milFile:
     milVerbos = milFile.readlines()
     milVerbos = [v.decode('utf8').strip() for v in milVerbos]
 
-topWords = []
+topWords = {}
 with open(TOP_FILE, 'r') as topFile:
-  topWords = topFile.readlines()
-  topWords = [w.decode('latin1').strip() for (c,w) in [l.split('\t') for l in topWords]]
+  topWordsList = [w.decode('latin1').strip() for (c,w) in [l.split('\t') for l in topFile.readlines()]]
+  for w in topWordsList:
+    topWords[w] = 1
 
 antonymDictionary = {}
 conjugationDictionary = {}
@@ -69,7 +70,7 @@ def conjugateAntonyms(word, antonym, dict):
         if (len(word_tense_person) > 0 and len(antonym_tense_person) > 0):
           putInDict(word_tense_person[0].decode('utf8').strip(),
                     antonym_tense_person[0].decode('utf8').strip(),
-                    dict)
+                    dict, 'conj')
   except:
     print "Conjugate Error: %s %s" % (word.encode('utf8'), antonym.encode('utf8'))
 
@@ -86,7 +87,8 @@ def putInDict(word, antonym, dict, pos=''):
   elif((pos == 'verb') and (word[-1] == 'r') and (antonym[-1] == 'r')):
     conjugateAntonyms(word, antonym, dict)
 
-  if(spellDictionary.spell(word) and spellDictionary.spell(antonym)):
+  if((pos == 'conj') or (pos == 'verb') or
+     (word in topWords and antonym in topWords)):
     if(word not in dict):
       dict[word] = {}
     dict[word][antonym] = 1
@@ -102,7 +104,7 @@ for uri in uris:
       word = word.encode('utf8').decode('utf8').strip()
       for antonym in mGraph[antonymPair[1] : URI(URI_URL + 'formaLexical')]:
         if(pos == 'verb'):
-          pos = 'verb' if (word in milVerbos or antonym in milVerbos) else ''
+          pos = 'verb' if (word in milVerbos and antonym in milVerbos) else ''
         antonym = antonym.encode('utf8').decode('utf8').strip()
         putInDict(word, antonym, antonymDictionary, pos)
 
