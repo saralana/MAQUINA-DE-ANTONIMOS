@@ -16,7 +16,8 @@ spellDictionary = hunspell.HunSpell('/usr/share/hunspell/pt_BR.dic',
 MY_PATH = os.path.dirname(os.path.realpath(__file__))
 RDF_FILE = MY_PATH + '/../assets/OntoPTv0.6_rdf/OntoPTv0.6.bin'
 TXT_FILE = MY_PATH + '/../assets/ICMC_USP/triplos.txt'
-MIL_FILE = MY_PATH + '/../assets/MIL_VERBOS_PT.txt'
+MIL_FILE = MY_PATH + '/../assets/Counters/MIL_VERBOS_PT.txt'
+TOP_FILE = MY_PATH + '/../assets/Counters/lemas.totalbr.50k.txt'
 OUT_FILE = MY_PATH + '/../assets/ants.js/ants.js'
 
 mGraph = rdflib.Graph()
@@ -27,6 +28,11 @@ milVerbos = []
 with open(MIL_FILE, 'r') as milFile:
     milVerbos = milFile.readlines()
     milVerbos = [v.decode('utf8').strip() for v in milVerbos]
+
+topWords = []
+with open(TOP_FILE, 'r') as topFile:
+  topWords = topFile.readlines()
+  topWords = [w.decode('latin1').strip() for (c,w) in [l.split('\t') for l in topWords]]
 
 antonymDictionary = {}
 conjugationDictionary = {}
