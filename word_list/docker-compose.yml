@@ -1,0 +1,4 @@
+build_word_list:
+  build: ./
+  volumes:
+    - .:/opt
