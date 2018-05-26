@@ -18,6 +18,7 @@ RDF_FILE = MY_PATH + '/../assets/OntoPTv0.6_rdf/OntoPTv0.6.bin'
 TXT_FILE = MY_PATH + '/../assets/ICMC_USP/triplos.txt'
 MIL_FILE = MY_PATH + '/../assets/Counters/MIL_VERBOS_PT.txt'
 TOP_FILE = MY_PATH + '/../assets/Counters/lemas.totalbr.50k.txt'
+CNJ_FILE = MY_PATH + '/../assets/Counters/conjugado.bin'
 OUT_FILE = MY_PATH + '/../assets/ants.js/ants.js'
 
 mGraph = rdflib.Graph()
@@ -37,6 +38,9 @@ with open(TOP_FILE, 'r') as topFile:
 
 antonymDictionary = {}
 conjugationDictionary = {}
+if(os.path.isfile(CNJ_FILE)):
+  with open(CNJ_FILE, 'rb') as conjFile:
+    conjugationDictionary = cPickle.load(conjFile)
 
 URI_URL = u'http://ontopt.dei.uc.pt/OntoPT.owl#'
 uris = ['antonimoAdjDe', 'antonimoNDe', 'antonimoVDe']
@@ -125,6 +129,9 @@ for word in antonymDictionary:
   antonymDictionary[word] = [antonym for antonym in antonymDictionary[word]]
 
 jsonDictionary = json.dumps(antonymDictionary, ensure_ascii=False, encoding='utf8')
+
+with open(CNJ_FILE, 'wb') as conjFile:
+    cPickle.dump(conjugationDictionary, conjFile, -1)
 
 with open(OUT_FILE, 'w') as outfile:
   outfile.write("var ants = JSON.parse('" + jsonDictionary.encode('utf8') + "')\n")
