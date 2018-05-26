@@ -21,6 +21,8 @@ TOP_FILE = MY_PATH + '/../assets/Counters/lemas.totalbr.50k.txt'
 CNJ_FILE = MY_PATH + '/../assets/Counters/conjugado.bin'
 OUT_FILE = MY_PATH + '/../assets/ants.js/ants.js'
 
+VERB_COUNT = int(9e6)
+
 mGraph = rdflib.Graph()
 with open(RDF_FILE, 'rb') as graphFile:
     mGraph = cPickle.load(graphFile)
@@ -32,9 +34,9 @@ with open(MIL_FILE, 'r') as milFile:
 
 topWords = {}
 with open(TOP_FILE, 'r') as topFile:
-  topWordsList = [w.decode('latin1').strip() for (c,w) in [l.split('\t') for l in topFile.readlines()]]
-  for w in topWordsList:
-    topWords[w] = 1
+  topWordsList = [(w.decode('latin1').strip(), c) for (c,w) in [l.split('\t') for l in topFile.readlines()]]
+  for (w, c) in topWordsList:
+    topWords[w] = int(c)
 
 antonymDictionary = {}
 conjugationDictionary = {}
@@ -95,10 +97,10 @@ def putInDict(word, antonym, dict, pos=''):
      (word in topWords and antonym in topWords)):
     if(word not in dict):
       dict[word] = {}
-    dict[word][antonym] = 1
+    dict[word][antonym] = topWords[antonym] if antonym in topWords else VERB_COUNT
     if(antonym not in dict):
       dict[antonym] = {}
-    dict[antonym][word] = 1
+    dict[antonym][word] = topWords[word] if word in topWords else VERB_COUNT
 
 for uri in uris:
   pos = ('adj' if 'AdjDe' in uri else
@@ -126,7 +128,10 @@ with open(TXT_FILE, 'r') as infile:
 print "total de palavras: %s" % str(len(antonymDictionary))
 
 for word in antonymDictionary:
-  antonymDictionary[word] = [antonym for antonym in antonymDictionary[word]]
+  wordAntsDict = antonymDictionary[word]
+  antonymDictionary[word] = sorted(wordAntsDict, key=wordAntsDict.get, reverse=True)
+  keepSize = min(20, int(round(0.4 * len(antonymDictionary[word]))))
+  antonymDictionary[word] = antonymDictionary[word][:keepSize]
 
 jsonDictionary = json.dumps(antonymDictionary, ensure_ascii=False, encoding='utf8')
 
