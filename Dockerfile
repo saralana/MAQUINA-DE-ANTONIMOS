@@ -1,8 +1,8 @@
 FROM python:2.7-jessie
 
 RUN apt-get update
-RUN apt-get install -y python-dev libhunspell-dev myspell-pt-br
-RUN apt-get install -y libgtk-3-dev intltool
+RUN apt-get install -y python-dev libhunspell-dev myspell-pt-br > /dev/null 2>&1
+RUN apt-get install -y libgtk-3-dev intltool > /dev/null 2>&1
 
 RUN mkdir -p /opt/build
 WORKDIR /opt/build
