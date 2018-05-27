@@ -23,6 +23,8 @@ OUT_FILE = MY_PATH + '/../assets/ants.js/ants.js'
 
 VERB_COUNT = int(9e6)
 
+conjugateErrors = 0
+
 mGraph = rdflib.Graph()
 with open(RDF_FILE, 'rb') as graphFile:
     mGraph = cPickle.load(graphFile)
@@ -48,7 +50,7 @@ URI_URL = u'http://ontopt.dei.uc.pt/OntoPT.owl#'
 uris = ['antonimoAdjDe', 'antonimoNDe', 'antonimoVDe']
 
 def conjugateAntonyms(word, antonym, dict):
-  global conjugationDictionary
+  global conjugationDictionary, conjugateErrors
   tenses = ['Presente do Indicativo',
             'Perfeito do Indicativo',
             'Imperfeito do Indicativo',
@@ -78,7 +80,9 @@ def conjugateAntonyms(word, antonym, dict):
                     antonym_tense_person[0].decode('utf8').strip(),
                     dict, 'conj')
   except:
-    print "Conjugate Error: %s %s" % (word.encode('utf8'), antonym.encode('utf8'))
+    conjugateErrors += 1
+    if(conjugateErrors % 25 == 0):
+      print "Conjugate Error: %s %s" % (word.encode('utf8'), antonym.encode('utf8'))
 
 def putInDict(word, antonym, dict, pos=''):
   word = word.replace('ü'.decode('utf8'), 'u')
