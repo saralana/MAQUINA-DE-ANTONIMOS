@@ -19,7 +19,7 @@ script:
 before_deploy:
   - git config --local user.name "USER_NAME"
   - git config --local user.email "USER@EMAIL.COM"
-  - git tag "$TRAVIS_COMMIT_MESSAGE"
+  - git tag "$(git log --format=%h -1)"
 
 deploy:
   provider: releases
