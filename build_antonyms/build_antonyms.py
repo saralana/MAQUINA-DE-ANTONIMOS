@@ -23,6 +23,10 @@ OUT_FILE = MY_PATH + '/../assets/ants.js/ants.js'
 
 VERB_COUNT = int(9e6)
 
+SKIP_LIST = ['negro', 'negra', 'negros', 'negras',
+             'judeu', 'judia',
+             'bicha', 'bichas', 'veado']
+
 mGraph = rdflib.Graph()
 with open(RDF_FILE, 'rb') as graphFile:
     mGraph = cPickle.load(graphFile)
@@ -83,6 +87,9 @@ def conjugateAntonyms(word, antonym, dict):
 def putInDict(word, antonym, dict, pos=''):
   word = word.replace('ü'.decode('utf8'), 'u')
   antonym = antonym.replace('ü'.decode('utf8'), 'u')
+
+  if(word in SKIP_LIST or antonym in SKIP_LIST):
+    return
 
   if((pos == 'adj') and (word[-1] == 'o') and (antonym[-1] == 'o')):
     putInDict(word[:-1] + 'a', antonym[:-1] + 'a', dict)
